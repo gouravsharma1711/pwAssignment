@@ -62,7 +62,7 @@ let getContact=(name)=>{
 }
 console.log(getContact("Harsh"));
 // 4.Create two objects persont and person2 with properties name and age. Create a function "introduce" that prints "Hello, I'm [name], and I'm [age] years old." Use the call method to make person2 introduce itself using the introduce function.
-let person={
+let Person={
     name:"person1Name",
     age:26,
 }
@@ -76,19 +76,64 @@ let introduce=function (){
 }
 introduce.call(person2);
 // 5. You are developing a program to manage a list of unique items. Write a Javascript program that uses a Set to store a collection of unique numbers. Use the Map object to associate each number with its square. Finally, print both the unique numbers and their corresponding squares.
+const numbers = new Set([1, 2, 3, 4, 5]); // Unique numbers using Set
+const numberSquares = new Map(); // Map to associate numbers with their squares
+
+numbers.forEach(number => {
+  numberSquares.set(number, number * number); 
+});
+
+console.log("Unique numbers and their squares:");
+numberSquares.forEach((square, number) => {
+  console.log(`Number: ${number}, Square: ${square}`);
+});
 // 6)Create a simple JavaScript function named displayinfo that takes two parameters (name and role) and logs a message.
-    function displayinfo(name,role){
-        console.log(`my name is ${name} and my role is ${role}`);
-    }
-    displayinfo("gourav","frontend engineer");
-// # Use call to invoke the displayinfo function with specific arguments.
-// # Use apply to invoke the displayinfo function with arguments passed as an array. 
-// # Create another function named greet that logs a greeting with this context.
-// # Use bind to create a new function boundGreet with a specific context and log the greeting.
+function displayinfo(name, role) {
+    console.log(`Name: ${name}, Role: ${role}`);
+  }
+  
+  // Using call to invoke the function with specific arguments
+  displayinfo.call(null, "Alice", "Developer");
+  
+  // Using apply to invoke the function with arguments passed as an array
+  displayinfo.apply(null, ["Bob", "Designer"]);
+  
+  // Another function named greet
+  function greet() {
+    console.log(`Hello, ${this.name}!`);
+  }
+  
+  // Using bind to create a new function boundGreet with a specific context
+  const person = { name: "Charlie" };
+  const boundGreet = greet.bind(person);
+  boundGreet();
+
 // 7. Tasks:
-// Create an object named calculator with methods add, subtract, and multiply.
-// Implement the calculate method in the calculator object, which takes an operation ('add', 'subtract', or 'multiply') and two numbers.
-// Use call to perform an addition operation using the calculate method.
-// Use apply to perform a multiplication operation using the calculate method with arguments as an array.
-// Create another object named discountCalculator with a discount percentage property and a method applyDiscount.
-// Use bind to create a new function calculateDiscount that is bound to the discountCalculator object and can be reused.
+// 7) Calculator object with methods and using call, apply, and bind
+const calculator = {
+    add: (a, b) => a + b,
+    subtract: (a, b) => a - b,
+    multiply: (a, b) => a * b,
+    
+    calculate: function(operation, a, b) {
+      return this[operation](a, b);
+    }
+  };
+  
+  // Using call to perform an addition operation
+  console.log("Addition using call:", calculator.calculate.call(calculator, 'add', 5, 3));
+  
+  // Using apply to perform a multiplication operation with arguments as an array
+  console.log("Multiplication using apply:", calculator.calculate.apply(calculator, ['multiply', 4, 6]));
+  
+  // DiscountCalculator object and bind usage
+  const discountCalculator = {
+    discountPercentage: 10,
+    applyDiscount(price) {
+      return price - (price * this.discountPercentage / 100);
+    }
+  };
+  
+  // Using bind to create a new function calculateDiscount bound to discountCalculator object
+  const calculateDiscount = discountCalculator.applyDiscount.bind(discountCalculator);
+  console.log("Price after discount:", calculateDiscount(200));
